@@ -1,25 +1,28 @@
 const jwt = require('jsonwebtoken');
 const Agency = require('../database/models/agencySchema');
 const { getData } = require('../utils/getAgencyData');
+
 module.exports = {
   async register(req, res) {
     try {
       const agencyData = getData(req.body);
+      console.log(agencyData)
       const agency = await Agency.create(agencyData);
       const token = jwt.sign(
         { id: agency._id },
         process.env.SECRET,
         { expiresIn: 1000 * 60 * 60 * 24 * 365 }
       );
-      res.status(200).json({ message: 'Agency Created', token });
+      res.status(200).json({ message: 'Agency Created', token, agency });
     } catch (error) {
       res.status(403).json({ error });
     }
   },
   async login(req, res) {
     try {
+      //console.log(req.body)
       const agency = await Agency.authenticate(req.body.userEmail, req.body.userPassword);
-
+      console.log(agency)
       if (!agency) {
         res.status(401).res('Invalid user or password');
         return;
@@ -27,8 +30,7 @@ module.exports = {
       const token = jwt.sign(
         { id: agency._id },
         process.env.SECRET,
-        { expiresIn: 1000 * 60 * 60 * 24 * 365 }
-      );
+        { expiresIn: 1000 * 60 * 60 * 24 * 365 });
 
       res.status(200).json({ message: 'Agency logged', token });
     } catch (error) {

@@ -3,13 +3,11 @@ const jwt = require('jsonwebtoken');
 const User = require('../database/models/userSchema');
 const { getData } = require('../utils/getUserData');
 module.exports = {
+  //register a new user
   async register(req, res) {
     const userData = await getData(req.body)
-    console.log(userData)
     try {
       const user = await User.create(userData);
-      console.log("user created")
-      console.log(user)
       const token = jwt.sign(
         { id: user._id },
         process.env.SECRET,
@@ -20,12 +18,12 @@ module.exports = {
       res.status(403).json({ error });
     }
   },
+  // login an user
   async login(req, res) {
     try {
-      console.log(req.body)
-      const user = await User.authenticate(req.body.email, req.body.password);
+      const user = await User.authenticate(req.body.userEmail, req.body.userPassword);
       if (!user) {
-        res.status(401).res('Invalid user or password');
+        res.status(401).json({ message: 'Invalid user or password' });
         return;
       }
       const token = jwt.sign(
@@ -33,12 +31,12 @@ module.exports = {
         process.env.SECRET,
         { expiresIn: 1000 * 60 * 60 * 24 * 365 }
       );
-
-      res.status(200).json({ message: 'User logged', token });
+      res.status(200).json({ message: 'User logged', token, user });
     } catch (error) {
       res.status(403).send({ error });
     }
   },
+  //Logout Request
   async logout(req, res) {
     try {
       req.userId = null;
@@ -67,5 +65,17 @@ module.exports = {
     } catch (error) {
       res.status(401).json(error.message)
     }
+  },
+  // verify token
+  async verify(req, res) {
+    const token = req.headers['authorization']
+    if (!token) {
+      return res.status(401).json({
+        message: 'No token provided'
+      });
+    }
+    const decoded = jwt.verify(token, process.env.SECRET);
+    res.status(200).send(decoded.id);
   }
+
 }

@@ -4,11 +4,11 @@ const bcrypt = require('bcrypt');
 const UserSchema = mongoose.Schema({
   userGivenName: {
     type: String,
-    required: [true, "is required"]
+    // required: [true, "is required"]
   },
   userFamilyName: {
     type: String,
-    required: [true, "is required"]
+    // required: [true, "is required"]
   },
   userEmail: {
     type: String,
@@ -20,14 +20,14 @@ const UserSchema = mongoose.Schema({
   },
   userDescription: {
     type: String,
-    require: true,
+    //require: true,
   },
-  userCompany: {
+  userAgency: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Agency',
     require: true
   },
-  userRol: {
+  typeAccount: {
     type: String,
     require: true,
   },
@@ -45,7 +45,13 @@ const UserSchema = mongoose.Schema({
     twitterUrl: String,
     instagramURL: String
   },
-  image: String
+  termsAndConditios: {
+    type: Boolean,
+    default: false,
+    require: true
+  },
+  image: String,
+  profileComplete: false
 });
 
 // Encrypt the password

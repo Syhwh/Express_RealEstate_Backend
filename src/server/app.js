@@ -1,30 +1,29 @@
-  
-  if (process.env.NODE_ENV === 'testing') {
-    require('custom-env').env('testing');
-  } else {
-    require('dotenv').config();
-  }
+
+if (process.env.NODE_ENV === 'testing') {
+  require('custom-env').env('testing');
+} else {
+  require('dotenv').config();
+}
 
 const express = require('express');
 const router = require('../routes');
+const cors = require('cors');
+const multer = require('multer');
+
+// Create application
+const app = express();
+
+app.use(cors({
+  origin: '*'
+}));
 
 
 
-//const cors = require('cors');
+if (process.env.NODE_ENV !== 'production') {
+  const morgan = require('morgan');
+ // app.use(morgan('dev'));
+}
 
-// app.use(cors({
-  //     origin: '*'
-  // }));
-
-  
-  // Create application
-  const app = express();
-
-  if (process.env.NODE_ENV !== 'production') {
-    const morgan = require('morgan');
-    app.use(morgan('dev'));
-  }
-  
 
 //Database
 require('../database/database');
