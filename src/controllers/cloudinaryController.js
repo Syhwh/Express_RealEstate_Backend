@@ -14,9 +14,9 @@ module.exports = {
   //   }
   // }
 
-  async upload(req, res, next) {
-    const uploader = async (path) => await cloudinary.uploads(path, 'Images');
-    if (req.method === 'POST') {
+  async upload(req, res) {
+    try {
+      const uploader = async (path) => await cloudinary.uploads(path);
       const urls = []
       const files = req.files;
       console.log('files')
@@ -33,12 +33,11 @@ module.exports = {
         message: 'images uploaded successfully',
         data: urls
       })
-
-    } else {
-      res.status(405).json({
-        err: `${req.method} method not allowed`
-      })
+      console.log('Peticion terminada')
+    } catch (error) {
+      res.status(401).json({ error })
     }
+
   }
 
 }

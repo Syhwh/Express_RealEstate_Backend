@@ -4,7 +4,7 @@ module.exports = {
   async getData(propertyInfo, userId) {
     console.log('en get data')
     const propertyUser = await User.findById(userId);
-   //const propertyImage=await cloudinary.v2.uploader.upload();
+    //const propertyImage=await cloudinary.v2.uploader.upload();
     return {
       // propertyGallery:[propertyImage.url] ,
       propertyUser,
@@ -21,6 +21,7 @@ module.exports = {
         city: propertyInfo.city,
         zipCode: propertyInfo.zipCode,
         address: propertyInfo.address,
+        coordenates: propertyInfo.coordenates
       },
       propertyDetails: {
         area: propertyInfo.area,
@@ -28,8 +29,9 @@ module.exports = {
         bedrooms: propertyInfo.bedrooms,
         bathrooms: propertyInfo.bathrooms,
         garages: propertyInfo.garages
-      }
-
+      },
+      propertyAmmenities: propertyInfo.ammenities,
+      propertyGallery: propertyInfo.gallery
     }
 
   }

@@ -2,6 +2,7 @@
 const jwt = require('jsonwebtoken');
 const User = require('../database/models/userSchema');
 const { getData } = require('../utils/getUserData');
+const { updateData } = require('../utils/updateUserData.js');
 module.exports = {
   //register a new user
   async register(req, res) {
@@ -47,21 +48,33 @@ module.exports = {
   },
   async edit(req, res) {
     const { id } = req.params;
-    const userUpdateInfo = {
-      userName: req.body.title,
-    };
+    console.log('id:', id)
     try {
+      const userUpdateInfo = await updateData(req.body)
+      console.log('userUpdateInfo')
+      console.log(userUpdateInfo)
       await User.updateOne(({ _id: id }, userUpdateInfo));
       res.status(200).json({ message: 'User edited succesfully' });
     } catch (error) {
       res.status(401).json(error.message)
     }
   },
+  // delete user
   async delete(req, res) {
     const { id } = req.params;
     try {
       await User.deleteOne(({ _id: id }));
       res.status(200).json({ message: 'User deleted succesfully' });
+    } catch (error) {
+      res.status(401).json(error.message)
+    }
+  },
+  
+  async getUser(req, res) {
+    const { id } = req.params;
+    try {
+      const user = await User.find(({ _id: id }));
+      res.status(200).json({ user });
     } catch (error) {
       res.status(401).json(error.message)
     }
@@ -77,5 +90,4 @@ module.exports = {
     const decoded = jwt.verify(token, process.env.SECRET);
     res.status(200).send(decoded.id);
   }
-
 }

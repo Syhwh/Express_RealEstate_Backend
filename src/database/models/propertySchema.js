@@ -17,6 +17,14 @@ const propertySchema = mongoose.Schema({
     type: Number,
     require: true
   },
+  propertyType: {
+    type: String,
+    require: true
+  },
+  propertyStatus: {
+    type: String,
+    require: true
+  },
   propertyLocation: {
     neighborhood: {
       type: String,
@@ -42,20 +50,12 @@ const propertySchema = mongoose.Schema({
       type: String,
       require: true
     },
-    // coordenates: {
-    //   type: Number,
-    //   require: true
-    // },
+    coordenates: {
+      type: Array,
+      //  require: true
+    },
   },
-  propertyType: {
-    type: String,
-    require: true
-  },
-  propertyStatus: {
-    type: String,
-    require: true
-  },
-  propertyDetails: {
+    propertyDetails: {
     area: {
       type: Number,
       require: true
@@ -77,13 +77,13 @@ const propertySchema = mongoose.Schema({
       require: true
     },
   },
-  // propertyAmmenities: {
-  //   type: Array,
-  //   require: true
-  // },
-  // propertyGallery: {
-  //   type: Array
-  // }
+  propertyAmmenities: {
+    type: Array,
+    //require: true
+  },
+  propertyGallery: {
+    type: Array
+  }
 });
 
 module.exports = mongoose.model('Property', propertySchema);

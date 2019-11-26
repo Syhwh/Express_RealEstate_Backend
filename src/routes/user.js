@@ -16,5 +16,7 @@ router.put('/user/:id', user.edit);
 router.delete('/user/:id', user.delete);
 // verify token
 router.post('/verify', user.verify);
+// get user info
+router.get('/user/:id', user.getUser);
 
 module.exports = router;

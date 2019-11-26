@@ -47,10 +47,10 @@ const UserSchema = mongoose.Schema({
   },
   termsAndConditios: {
     type: Boolean,
-    default: false,
+    default: true,
     require: true
   },
-  image: String,
+  image: [],
   profileComplete: false
 });
 

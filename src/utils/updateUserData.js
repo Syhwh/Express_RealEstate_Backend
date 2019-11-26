@@ -1,11 +1,10 @@
 const Agency = require('../database/models/agencySchema');
 module.exports = {
-  async getData(userInfo) {
+  async updateData(userInfo) {
     return {
+      userEmail: userInfo.userEmail,
       userGivenName: userInfo.userGivenName,
       userFamilyName: userInfo.userFamilyName,
-      userEmail: userInfo.userEmail,
-      userPassword: userInfo.userPassword,
       userDescription: userInfo.userDescription,
       userAgency: userInfo.userAgency || await Agency.findById('5dc6f4b4b33c491d7c0c1af9'),
       typeAccount: userInfo.typeAccount,
@@ -19,9 +18,8 @@ module.exports = {
         twitterUrl: userInfo.twitterUrl || '',
         instagramURL: userInfo.instagramURL || '',
       },
-      termsAndConditions: userInfo.termsAndConditions,
       image: userInfo.image || '',
-      profileComplete: false
+      profileComplete: true
     }
   }
 }
