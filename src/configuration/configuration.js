@@ -9,6 +9,6 @@ const config = {
             useCreateIndex: true
         },
     },
-    zwsid: process.env.ZWSID
+    
 }
 module.exports = config;
