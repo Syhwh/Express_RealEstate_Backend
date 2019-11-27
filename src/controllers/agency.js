@@ -5,8 +5,7 @@ const { getData } = require('../utils/getAgencyData');
 module.exports = {
   async register(req, res) {
     try {
-      const agencyData = getData(req.body);
-      console.log(agencyData)
+      const agencyData = getData(req.body);      
       const agency = await Agency.create(agencyData);
       const token = jwt.sign(
         { id: agency._id },
@@ -20,9 +19,8 @@ module.exports = {
   },
   async login(req, res) {
     try {
-      //console.log(req.body)
       const agency = await Agency.authenticate(req.body.userEmail, req.body.userPassword);
-      console.log(agency)
+     
       if (!agency) {
         res.status(401).res('Invalid user or password');
         return;

@@ -7,7 +7,7 @@ module.exports = {
       userEmail: userInfo.userEmail,
       userPassword: userInfo.userPassword,
       userDescription: userInfo.userDescription,
-      userAgency: userInfo.userAgency || await Agency.findById('5dc6f4b4b33c491d7c0c1af9'),
+      userAgency: userInfo.userAgency || await Agency.findById('5dde9d5c1c9d4400004f4afe'),
       typeAccount: userInfo.typeAccount,
       userContact: {
         officePhone: userInfo.officePhone || '',

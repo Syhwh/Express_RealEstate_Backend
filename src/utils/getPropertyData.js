@@ -2,11 +2,9 @@ const User = require('../database/models/userSchema');
 
 module.exports = {
   async getData(propertyInfo, userId) {
-    console.log('en get data')
+
     const propertyUser = await User.findById(userId);
-    //const propertyImage=await cloudinary.v2.uploader.upload();
     return {
-      // propertyGallery:[propertyImage.url] ,
       propertyUser,
       propertyTitle: propertyInfo.propertyTitle,
       propertyDescription: propertyInfo.propertyDescription,

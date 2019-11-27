@@ -18,14 +18,12 @@ module.exports = {
     try {
       const uploader = async (path) => await cloudinary.uploads(path);
       const urls = []
-      const files = req.files;
-      console.log('files')
-      console.log(files)
+      const files = req.files; 
       for (const file of files) {
         const { path } = file;
         const newPath = await uploader(path)
         urls.push(newPath)
-        console.log(urls)
+     
         fs.unlinkSync(path)
       }
 
@@ -33,7 +31,6 @@ module.exports = {
         message: 'images uploaded successfully',
         data: urls
       })
-      console.log('Peticion terminada')
     } catch (error) {
       res.status(401).json({ error })
     }

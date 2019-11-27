@@ -5,11 +5,9 @@ module.exports = {
   async create(req, res) {
     try {
       const propertyInfo = await getData(req.body, req.userId.id);
-      console.log('propertyInfo')
-      console.log(propertyInfo)
+ 
       const property = await Property.create(propertyInfo);
-      console.log('property created')
-      console.log(property)
+  
       res.status(200).json({ message: 'New Property Created', property });
     } catch (error) {
       res.status(403).json({ error });
@@ -41,14 +39,14 @@ module.exports = {
 
     try {
       const property = await Property.findById(id);
-      console.log(property)
+   
       res.status(200).json({ property })
     } catch (error) {
       res.status(401).json(error.message)
     }
   },
   async list(req, res) {
-    console.log('in list back')
+    
     try {
       const properties = await Property.find();
       res.status(200).json({ properties })

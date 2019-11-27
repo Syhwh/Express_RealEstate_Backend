@@ -8,15 +8,11 @@ module.exports = {
 
     try {
       const { search, country, state } = req.query;
-      console.log(req.query)
-      //new RegExp(`^${req.query.q}`).find..
 
       const searchResult = await Property.find(
         { $text: { $search: search || country || state } },
         { score: { $meta: "textScore" } }
-      ).sort({ score: { $meta: "textScore" } });
-
-      console.log(searchResult)
+      ).sort({ score: { $meta: "textScore" } });  
       res.status(200).json({
         searchResult
       });

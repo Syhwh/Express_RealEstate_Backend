@@ -48,11 +48,10 @@ module.exports = {
   },
   async edit(req, res) {
     const { id } = req.params;
-    console.log('id:', id)
+ 
     try {
       const userUpdateInfo = await updateData(req.body)
-      console.log('userUpdateInfo')
-      console.log(userUpdateInfo)
+
       await User.updateOne(({ _id: id }, userUpdateInfo));
       res.status(200).json({ message: 'User edited succesfully' });
     } catch (error) {
@@ -69,7 +68,7 @@ module.exports = {
       res.status(401).json(error.message)
     }
   },
-  
+
   async getUser(req, res) {
     const { id } = req.params;
     try {
